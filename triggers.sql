@@ -1,0 +1,17 @@
+
+
+INSERT INTO CLIENTE(RUT, NOMBRE, APELLIDO, EMAIL) VALUES ('21.454.159-9', 'S er g i o', 'Sepu lv eda', 'SEr gI  o@gm ail.com');
+COMMIT;
+
+CREATE OR REPLACE TRIGGER tgr_validacion
+BEFORE INSERT OR UPDATE ON CLIENTE
+
+
+FOR EACH ROW
+
+BEGIN
+    :NEW.NOMBRE := INITCAP( TRIM( REPLACE( :NEW.NOMBRE, ' ', '' ) ) );
+    :NEW.APELLIDO := INITCAP( TRIM( REPLACE( :NEW.APELLIDO, ' ', '' ) ) );
+
+    :NEW.EMAIL := LOWER( TRIM( REPLACE( :NEW.EMAIL, ' ', '' ) ) );
+END tgr_validacion;
